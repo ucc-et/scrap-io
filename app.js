@@ -35,6 +35,7 @@ let currentState = {
 let timerElapsedMs = 0;
 let timerStartMs = null;
 let timerInterval = null;
+const REQUIRE_JS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js';
 
 function loadState() {
   try {
@@ -143,9 +144,29 @@ function updateLanguage(language) {
   persistState();
 }
 
-function setupMonaco() {
+function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.crossOrigin = 'anonymous';
+    script.referrerPolicy = 'no-referrer';
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+async function setupMonaco() {
   loadState();
   syncControls();
+
+  if (!window.require) {
+    try {
+      await loadScript(REQUIRE_JS_URL);
+    } catch (error) {
+      return;
+    }
+  }
 
   window.require.config({
     paths: {
