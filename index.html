@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Minimal Monaco-based interview scratchpad. Pure static HTML, CSS, and JavaScript."
+    />
+    <title>scrap-io</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar">
+        <div class="controls-left">
+          <label class="control">
+            <span>Language</span>
+            <select id="languageSelect" aria-label="Select language">
+              <option value="python">Python</option>
+              <option value="javascript">JavaScript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="cpp">C++</option>
+              <option value="java">Java</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+              <option value="sql">SQL</option>
+            </select>
+          </label>
+
+          <label class="control">
+            <span>Font</span>
+            <input
+              id="fontSizeInput"
+              type="range"
+              min="12"
+              max="22"
+              step="1"
+              value="14"
+              aria-label="Adjust editor font size"
+            />
+            <output id="fontSizeValue" for="fontSizeInput">14px</output>
+          </label>
+
+          <fieldset class="control tab-size-group" aria-label="Tab size">
+            <legend>Tab</legend>
+            <label>
+              <input type="radio" name="tabSize" value="2" />
+              2 spaces
+            </label>
+            <label>
+              <input type="radio" name="tabSize" value="4" checked />
+              4 spaces
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="controls-right">
+          <button id="clearBtn" type="button">Clear</button>
+          <button id="copyBtn" type="button" aria-live="polite">Copy Code</button>
+          <span id="copyFeedback" role="status" aria-live="polite">Copied!</span>
+
+          <div class="timer" aria-label="Interview timer">
+            <span id="timerDisplay">00:00</span>
+            <button id="timerStartBtn" type="button">Start</button>
+            <button id="timerPauseBtn" type="button">Pause</button>
+            <button id="timerResetBtn" type="button">Reset</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="editor-wrap" aria-label="Code editor">
+        <div id="editor"></div>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
